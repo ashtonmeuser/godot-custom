@@ -29,7 +29,7 @@ jobs:
         id: set_release_title
         run: |
           gtag=${{ inputs.godot_tag }}
-          title="Godot ${gtag%-*}
+          title="Godot ${gtag%-*}"
           echo "release_title=${title}" >> $GITHUB_OUTPUT
       - name: set_godot_version
         id: set_godot_version
@@ -102,7 +102,7 @@ jobs:
           retention-days: 1
 
 ################# Win64 Builds #################
-  
+
   build-win64-editor:
     needs: [env-setup]
     uses: ./.github/workflows/build-windows-artifact.yml
