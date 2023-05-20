@@ -444,6 +444,11 @@ jobs:
         with:
           name: macos-template-app
           path: files
+      - name: Download MacOS Steam Library
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-libsteam-api-dylib
+          path: files
       - name: Create Template Bundle
         run: |
           lipo -create files/godot.osx.opt.x86_64 files/godot.osx.opt.arm64 -output files/godot.osx.opt.universal
