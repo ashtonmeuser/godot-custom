@@ -28,8 +28,7 @@ jobs:
       - name: Set Release Title
         id: set_release_title
         run: |
-          gtag=${{ inputs.godot_tag }}
-          title="Godot ${gtag%-*}"
+          title="Godot"
           echo "release_title=${title}" >> $GITHUB_OUTPUT
       - name: Set Godot Version
         id: set_godot_version
@@ -369,6 +368,7 @@ jobs:
 
   create-release:
     needs: [env-setup, create-templates-bundle, create-linux-bundle, create-macos-bundle, create-win64-bundle]
+    permissions: write-all
     runs-on: macos-latest
     steps:
     - name: Download Win64 bundle
