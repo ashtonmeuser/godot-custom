@@ -22,23 +22,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Checkout Godot
       - name: Checkout Godot
         uses: actions/checkout@v3
         with:
-          repository: "godotengine/godot"
-          path: "godot"
+          repository: godotengine/godot
+          path: godot
           ref: ${{ inputs.godot_tag }}
+
       - name: Install Build Requirements
         run: |
           python --version
           python -m pip install scons
           scons --version
+
       - name: Build Windows
-        working-directory: "godot"
+        working-directory: godot
         run: |
           scons ${{ inputs.build_params }}
           cd bin && ren ${{ inputs.binary_name }} ${{ inputs.export_name }}
+
       - name: Upload Windows Build
         uses: actions/upload-artifact@v3
         with:

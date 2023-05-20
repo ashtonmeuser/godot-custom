@@ -19,14 +19,13 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      # Checkout Godot
       - name: Checkout Godot
         uses: actions/checkout@v3
         with:
-          repository: "godotengine/godot"
-          path: "godot"
+          repository: godotengine/godot
+          path: godot
           ref: ${{ inputs.godot_tag }}
-      # Install the Vulkan SDK, script copied from the official Godot build scripts.
+
       - name: Install Vulkan SDK
         run: |
           set -euo pipefail
@@ -45,33 +44,37 @@ jobs:
           done
           rm -f /tmp/vulkan-sdk.dmg
           echo 'Vulkan SDK installed successfully!'
+
       - name: Install Build Tools
-        run: |
-          brew install scons yasm
-      - name: Build MacOS
-        working-directory: "godot"
-        run: |
-          scons ${{ inputs.build_params }}
-      - name: Upload MacOS Build
+        run: brew install scons yasm
+
+      - name: Build macOS
+        working-directory: godot
+        run: scons ${{ inputs.build_params }}
+
+      - name: Upload macOS Build
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.artifact_name }}
           path: godot/bin/${{ inputs.export_name }}
           if-no-files-found: error
           retention-days: 1
-      - name: Zip the MacOS Apps
+
+      - name: Zip the macOS Apps
         run: |
           pushd godot/misc/dist
           zip -r ./osx_tools.zip ./osx_tools.app/
           zip -r ./osx_template.zip ./osx_template.app/
           popd
-      - name: Upload MacOS Tool App
+
+      - name: Upload macOS Editor App
         uses: actions/upload-artifact@v3
         with:
           name: macos-tool-app
           path: godot/misc/dist/osx_tools.zip
           if-no-files-found: error
           retention-days: 1
+
       - name: Upload MacOS Template App
         uses: actions/upload-artifact@v3
         with:
