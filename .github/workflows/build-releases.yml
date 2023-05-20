@@ -355,12 +355,12 @@ jobs:
           zip -r ./macos.zip ./osx_template.app
           popd
           rm -r files/osx_template.app/
-          zip -j godot-${{ needs.env-setup.outputs.zip_tag }}-templates.zip files/*
+          zip -j ${{ needs.env-setup.outputs.zip_tag }}-templates.zip files/*
       - name: Upload template bundle artifact
         uses: actions/upload-artifact@v3
         with:
-          name: godot-${{ needs.env-setup.outputs.zip_tag }}-templates.zip
-          path: godot-${{ needs.env-setup.outputs.zip_tag }}-templates.zip
+          name: ${{ needs.env-setup.outputs.zip_tag }}-templates.zip
+          path: ${{ needs.env-setup.outputs.zip_tag }}-templates.zip
           if-no-files-found: error
           retention-days: 1
 
@@ -386,7 +386,7 @@ jobs:
     - name: Download Template bundle
       uses: actions/download-artifact@v3
       with:
-        name: godot-${{ needs.env-setup.outputs.zip_tag }}-templates.zip
+        name: ${{ needs.env-setup.outputs.zip_tag }}-templates.zip
     - name: Upload Win64 bundle to release
       uses: svenstaro/upload-release-action@v2
       with:
@@ -409,5 +409,5 @@ jobs:
     - name: Upload template bundle to release
       uses: svenstaro/upload-release-action@v2
       with:
-        file: godot-${{ needs.env-setup.outputs.zip_tag }}-templates.zip
+        file: ${{ needs.env-setup.outputs.zip_tag }}-templates.zip
         tag: ${{ needs.env-setup.outputs.zip_tag }}
