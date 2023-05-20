@@ -374,10 +374,12 @@ jobs:
           mv files/osx_tools.app files/GodotEditor.app
           mkdir files/GodotEditor.app/Contents/MacOS
           mv files/godot.osx.tools.universal files/GodotEditor.app/Contents/MacOS/godot
+          cp files/libsteam_api.dylib files/GodotEditor.app/Contents/MacOS
           chmod +x files/GodotEditor.app/Contents/MacOS/godot
           mkdir files/osx_template.app/Contents/MacOS
           mv files/godot.osx.opt.universal files/osx_template.app/Contents/MacOS/godot_osx_release.64
           mv files/godot.osx.opt.debug.universal files/osx_template.app/Contents/MacOS/godot_osx_release_debug.64
+          cp files/libsteam_api.dylib files/osx_template.app/Contents/MacOS
           chmod +x files/osx_template.app/Contents/MacOS/godot_osx*
           pushd files
           zip -r ./macos.zip ./osx_template.app
@@ -452,6 +454,7 @@ jobs:
           mkdir files/osx_template.app/Contents/MacOS
           mv files/godot.osx.opt.universal files/osx_template.app/Contents/MacOS/godot_osx_release.64
           mv files/godot.osx.opt.debug.universal files/osx_template.app/Contents/MacOS/godot_osx_release_debug.64
+          cp files/libsteam_api.dylib files/osx_template.app/Contents/MacOS
           chmod +x files/osx_template.app/Contents/MacOS/godot_osx*
           pushd files
           zip -r ./macos.zip ./osx_template.app
